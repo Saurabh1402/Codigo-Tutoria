@@ -17,8 +17,6 @@
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
     </bean>
-    <bean id="programminglanguage" class="com.massacre.codigotutoria.models.ProgrammingLanguage"/>
-    <bean id="languageheader" class="com.massacre.codigotutoria.models.LanguageHeader"/>
     <mvc:resources mapping="/pages/**" location="/WEB-INF/views/" />
     <mvc:annotation-driven/>
 

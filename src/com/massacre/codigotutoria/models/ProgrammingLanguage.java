@@ -1,24 +1,36 @@
 package com.massacre.codigotutoria.models;
 
+import com.google.gson.Gson;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * Created by saurabh on 13/7/17.
  */
 @XmlRootElement(name = "ProgrammingLanguage")
 public class ProgrammingLanguage {
+    private long languageId;
     private String title;
     private String imageResource;
     private String colorPrimary;
     private String colorPrimaryDark;
     private String colorAccent;
-    private LanguageHeader headers[];
+    private List<LanguageHeader> headers;
 
-    public LanguageHeader[] getHeaders() {
+    public long getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(long languageId) {
+        this.languageId = languageId;
+    }
+
+    public List<LanguageHeader> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(LanguageHeader[] headers) {
+    public void setHeaders(List<LanguageHeader> headers) {
         this.headers = headers;
     }
 
@@ -62,5 +74,7 @@ public class ProgrammingLanguage {
         this.colorAccent = colorAccent;
     }
 
-
+    public String toString(){
+        return new Gson().toJson(this);
+    }
 }
