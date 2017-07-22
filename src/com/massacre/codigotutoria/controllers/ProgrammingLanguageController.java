@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="/codigotutoria",produces = "application/json")
 public class ProgrammingLanguageController {
-    private ProgrammingLanguage programmingLanguage=new ProgrammingLanguage();
-    private LanguageHeader header=new LanguageHeader();
+    private ProgrammingLanguage programmingLanguage;
 
     @RequestMapping(value="/getIndexJSON",method= RequestMethod.GET,produces = "application/json")
     public ProgrammingLanguage helloPage(ModelMap map){
@@ -30,7 +29,7 @@ public class ProgrammingLanguageController {
         ctx.load("WEB-INF/applicationContext.xml");
         ctx.refresh();
         DatabaseEngine databaseEngine=ctx.getBean("dbEngineDaoBean", DatabaseEngine.class);
-        programmingLanguage.setTitle(databaseEngine.checkConnectivity());
+        programmingLanguage=databaseEngine.findLanguageByLanguageId(3l);
         return programmingLanguage;
     }
 }

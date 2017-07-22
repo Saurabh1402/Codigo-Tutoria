@@ -52,22 +52,27 @@ public class DatabaseEngine implements EngineInterface{
     
     @Override
     public List<ProgrammingLanguage> findAllLanguage() {
-
-        return null;
+        String query="SELECT pl.language_id, pl.title, pl.image_resource,pl.color_primary, pl.color_accent, pl.color_primary_dark, " +
+                " lh.language_header_id,lh.header_title,lh.header_count, " +
+                "li.language_index_id, li.index_title, li.index_count " +
+                "FROM programminglanguage pl, languageheader lh, languageindex li " +
+                "WHERE pl.language_id=lh.programming_language_id and " +
+                "lh.language_header_id=li.language_header_id";
+        return namedParameterJdbcTemplate.query(query,new ProgrammingLanguageExtractor());
     }
 
     @Override
     public ProgrammingLanguage findLanguageByLanguageId(long languageId) {
-        String query="SELECT language_id, title, image_resource,color_primary, color_accent, color_primary_dark," +
-                "language_header_id,header_title,header_count," +
-                "language_index_id, index_title, index_count " +
-                "FROM programminglanguage pl, languageheader lh, languageindex li" +
+        String query="SELECT pl.language_id, pl.title, pl.image_resource,pl.color_primary, pl.color_accent, pl.color_primary_dark, " +
+                " lh.language_header_id,lh.header_title,lh.header_count, " +
+                "li.language_index_id, li.index_title, li.index_count " +
+                "FROM programminglanguage pl, languageheader lh, languageindex li " +
                 "WHERE pl.language_id=lh.programming_language_id and " +
-                "lh.language_header_id=li.language_header_id and language_id=:language_id";
+                "lh.language_header_id=li.language_header_id and pl.language_id=:languageId";
         Map<String,Object> mapper=new HashMap<String,Object>();
-        mapper.put("language_id",languageId);
-        namedParameterJdbcTemplate.query(query,mapper,new ProgrammingLanguageExtractorById());
-        return null;
+        mapper.put("languageId",languageId);
+        return namedParameterJdbcTemplate.query(query,mapper,new ProgrammingLanguageExtractorById());
+
     }
 
     @Override
@@ -94,19 +99,38 @@ public class DatabaseEngine implements EngineInterface{
     public void deleteLanguage(ProgrammingLanguage language) {
 
     }
-    public class ProgrammingLanguageExtractorById implements ResultSetExtractor<ProgrammingLanguage>{
+    private class ProgrammingLanguageExtractorById implements ResultSetExtractor<ProgrammingLanguage>{
 
         @Override
         public ProgrammingLanguage extractData(ResultSet resultSet) throws SQLException, DataAccessException {
-            ProgrammingLanguage programmingLanguage=new ProgrammingLanguage();
-            programmingLanguage.setLanguageId(resultSet.getLong("language_id"));
-            programmingLanguage.setTitle(resultSet.getString("title"));
-            programmingLanguage.setImageResource(resultSet.getString("image_resource"));
-            programmingLanguage.setColorPrimary(resultSet.getString("color_primary"));
-            programmingLanguage.setColorPrimaryDark(resultSet.getString("color_primary_dark"));
-            programmingLanguage.setColorAccent(resultSet.getString("color_accent"));
-            programmingLanguage.setHeaders(new ArrayList<LanguageHeader>());
-            HashMap<Long,LanguageHeader> map=new HashMap<Long,LanguageHeader>();
+            HashMap<Long, LanguageHeader> map = new HashMap<Long, LanguageHeader>();
+            ProgrammingLanguage programmingLanguage = new ProgrammingLanguage();
+            if(resultSet.next()) {
+                programmingLanguage.setLanguageId(resultSet.getLong("language_id"));
+                programmingLanguage.setTitle(resultSet.getString("title"));
+                programmingLanguage.setImageResource(resultSet.getString("image_resource"));
+                programmingLanguage.setColorPrimary(resultSet.getString("color_primary"));
+                programmingLanguage.setColorPrimaryDark(resultSet.getString("color_primary_dark"));
+                programmingLanguage.setColorAccent(resultSet.getString("color_accent"));
+                programmingLanguage.setHeaders(new ArrayList<LanguageHeader>());
+                long sqlHeaderId = resultSet.getLong("language_header_id");
+                LanguageHeader languageHeader = new LanguageHeader();
+                languageHeader.setHeaderTitle(resultSet.getString("header_title"));
+                languageHeader.setLanguageHeaderId(sqlHeaderId);
+                languageHeader.setHeaderCount(resultSet.getLong("header_count"));
+                languageHeader.setIndex(new ArrayList<LanguageIndex>());
+                programmingLanguage.getHeaders().add(languageHeader);
+                map.put(languageHeader.getLanguageHeaderId(),languageHeader);
+                LanguageIndex languageIndex = new LanguageIndex();
+                languageIndex.setIndexTitle(resultSet.getString("index_title"));
+                languageIndex.setLanguageIndexId(resultSet.getLong("language_index_id"));
+                languageIndex.setIndexCount(resultSet.getLong("index_count"));
+                languageHeader.getIndex().add(languageIndex);
+            }else {
+                return null;
+            }
+
+
             while(resultSet.next()){
                 long sqlHeaderId=resultSet.getLong("language_header_id");
                 LanguageHeader languageHeader=map.get(sqlHeaderId);
@@ -117,13 +141,17 @@ public class DatabaseEngine implements EngineInterface{
                     languageHeader.setHeaderCount(resultSet.getLong("header_count"));
                     languageHeader.setIndex(new ArrayList<LanguageIndex>());
                     programmingLanguage.getHeaders().add(languageHeader);
+                    map.put(languageHeader.getLanguageHeaderId(),languageHeader);
                 }
+
                 LanguageIndex languageIndex=new LanguageIndex();
                 languageIndex.setIndexTitle(resultSet.getString("index_title"));
                 languageIndex.setLanguageIndexId(resultSet.getLong("language_index_id"));
                 languageIndex.setIndexCount(resultSet.getLong("index_count"));
+                languageHeader.getIndex().add(languageIndex);
             }
-            return null;
+            System.out.println(" My Message: "+programmingLanguage.getHeaders().size());
+            return programmingLanguage;
         }
     }
     public class ProgrammingLanguageExtractor implements ResultSetExtractor<List<ProgrammingLanguage>>{
