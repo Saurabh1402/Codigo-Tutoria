@@ -74,7 +74,7 @@ public class ProgrammingLanguage {
         this.colorAccent = colorAccent;
     }
 
-    public String toString(){
-        return new Gson().toJson(this);
-    }
+//    public String toString(){
+//        return new Gson().toJson(this);
+//    }
 }

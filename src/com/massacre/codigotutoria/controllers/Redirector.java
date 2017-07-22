@@ -13,6 +13,6 @@ import org.springframework.web.portlet.ModelAndView;
 public class Redirector {
     @RequestMapping(method = RequestMethod.GET)
     public String redirect(){
-        return "redirect:/codigotutoria/getIndexJSON/";
+        return "redirect:/codigotutoria/getindexforall/";
     }
 }

@@ -14,22 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Created by saurabh on 14/7/17.
  */
 @RestController
-@RequestMapping(value="/codigotutoria",produces = "application/json")
+@RequestMapping(value="/codigotutoria")
 public class ProgrammingLanguageController {
-    private ProgrammingLanguage programmingLanguage;
 
-    @RequestMapping(value="/getIndexJSON",method= RequestMethod.GET,produces = "application/json")
-    public ProgrammingLanguage helloPage(ModelMap map){
+    @RequestMapping(value="/getindexforall",method= RequestMethod.GET,produces = "application/json")
+    public List<ProgrammingLanguage> helloPage(ModelMap map){
 //        ApplicationContext ctx=new ClassPathXmlApplicationContext("//WEB-INF/applicationContext.xml");
         GenericXmlApplicationContext ctx=new GenericXmlApplicationContext();
         ctx.load("WEB-INF/applicationContext.xml");
         ctx.refresh();
         DatabaseEngine databaseEngine=ctx.getBean("dbEngineDaoBean", DatabaseEngine.class);
-        programmingLanguage=databaseEngine.findLanguageByLanguageId(3l);
-        return programmingLanguage;
+        List<ProgrammingLanguage> programmingLanguages=databaseEngine.findAllLanguage();
+        return programmingLanguages;
     }
 }
