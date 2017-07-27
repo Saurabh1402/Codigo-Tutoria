@@ -1,4 +1,4 @@
-package com.massacre.codigotutoria.dbhelper.extractor;
+package com.massacre.codigotutoria.extractor;
 
 import com.massacre.codigotutoria.models.LanguageHeader;
 import com.massacre.codigotutoria.models.LanguageIndex;

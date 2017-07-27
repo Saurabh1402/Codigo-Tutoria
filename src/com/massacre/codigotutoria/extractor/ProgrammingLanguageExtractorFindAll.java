@@ -1,17 +1,17 @@
-package com.massacre.codigotutoria.dbhelper.extractor;
+package com.massacre.codigotutoria.extractor;
 
 import com.massacre.codigotutoria.models.LanguageHeader;
 import com.massacre.codigotutoria.models.LanguageIndex;
 import com.massacre.codigotutoria.models.ProgrammingLanguage;
+import com.massacre.codigotutoria.utils.CodigoTutoriaDateFormatter;
+import org.apache.log4j.lf5.util.DateFormatManager;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * Created by saurabh on 23/7/17.
@@ -22,8 +22,8 @@ public class ProgrammingLanguageExtractorFindAll implements ResultSetExtractor<L
     public List<ProgrammingLanguage> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
         Map<Long, LanguageHeader> mapHeader = new HashMap<Long, LanguageHeader>();
         Map<Long, ProgrammingLanguage> mapLanguage = new HashMap<Long, ProgrammingLanguage>();
-        ProgrammingLanguage programmingLanguage=null;
-        LanguageHeader languageHeader=null;
+        ProgrammingLanguage programmingLanguage;
+        LanguageHeader languageHeader;
         while(resultSet.next()){
             programmingLanguage=null;
             languageHeader=null;
@@ -37,6 +37,11 @@ public class ProgrammingLanguageExtractorFindAll implements ResultSetExtractor<L
                 programmingLanguage.setColorPrimary(resultSet.getString("color_primary"));
                 programmingLanguage.setColorPrimaryDark(resultSet.getString("color_primary_dark"));
                 programmingLanguage.setColorAccent(resultSet.getString("color_accent"));
+                try {
+                    programmingLanguage.setLastModified(new CodigoTutoriaDateFormatter().parse(resultSet.getString("last_modified")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 programmingLanguage.setHeaders(new ArrayList<LanguageHeader>());
                 mapLanguage.put(sqlLanguageId,programmingLanguage);
             }
@@ -49,7 +54,11 @@ public class ProgrammingLanguageExtractorFindAll implements ResultSetExtractor<L
                 languageHeader.setHeaderTitle(resultSet.getString("header_title"));
                 languageHeader.setHeaderCount(resultSet.getLong("header_count"));
                 languageHeader.setIndex(new ArrayList<LanguageIndex>());
-                programmingLanguage.getHeaders().add(languageHeader);
+                try {
+                    languageHeader.setLastModified(new CodigoTutoriaDateFormatter().parse(resultSet.getString("last_modified")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }programmingLanguage.getHeaders().add(languageHeader);
                 mapHeader.put(languageHeader.getLanguageHeaderId(),languageHeader);
             }
 
@@ -57,6 +66,11 @@ public class ProgrammingLanguageExtractorFindAll implements ResultSetExtractor<L
             languageIndex.setIndexTitle(resultSet.getString("index_title"));
             languageIndex.setLanguageIndexId(resultSet.getLong("language_index_id"));
             languageIndex.setIndexCount(resultSet.getLong("index_count"));
+            try {
+                languageIndex.setLastModified(new CodigoTutoriaDateFormatter().parse(resultSet.getString("last_modified")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             languageHeader.getIndex().add(languageIndex);
         }
 

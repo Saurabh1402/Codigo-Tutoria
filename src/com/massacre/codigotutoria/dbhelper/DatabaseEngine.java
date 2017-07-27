@@ -1,7 +1,7 @@
 package com.massacre.codigotutoria.dbhelper;
 
-import com.massacre.codigotutoria.dbhelper.extractor.ProgrammingLanguageExtractorById;
-import com.massacre.codigotutoria.dbhelper.extractor.ProgrammingLanguageExtractorFindAll;
+import com.massacre.codigotutoria.extractor.ProgrammingLanguageExtractorById;
+import com.massacre.codigotutoria.extractor.ProgrammingLanguageExtractorFindAll;
 import com.massacre.codigotutoria.exception.MySQLErrorCodesTranslator;
 import com.massacre.codigotutoria.models.ProgrammingLanguage;
 import org.apache.log4j.Logger;

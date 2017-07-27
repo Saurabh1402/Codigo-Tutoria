@@ -1,5 +1,6 @@
 package com.massacre.codigotutoria.models;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -9,9 +10,17 @@ public class LanguageHeader {
 
     private long languageHeaderId;
     private String headerTitle;
-
     private long headerCount;
     private List<LanguageIndex> index;
+    private Date lastModified;
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 
     public long getLanguageHeaderId() {
         return languageHeaderId;

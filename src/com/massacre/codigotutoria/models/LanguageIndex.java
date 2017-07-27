@@ -1,5 +1,7 @@
 package com.massacre.codigotutoria.models;
 
+import java.util.Date;
+
 /**
  * Created by saurabh on 16/7/17.
  */
@@ -8,6 +10,15 @@ public class LanguageIndex {
     private long languageIndexId;
     private String indexTitle;
     private long indexCount;
+    private Date lastModified;
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 
     public long getLanguageIndexId() {
         return languageIndexId;

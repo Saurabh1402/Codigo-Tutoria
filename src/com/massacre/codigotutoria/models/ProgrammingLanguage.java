@@ -3,6 +3,7 @@ package com.massacre.codigotutoria.models;
 import com.google.gson.Gson;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,15 @@ public class ProgrammingLanguage {
     private String colorPrimaryDark;
     private String colorAccent;
     private List<LanguageHeader> headers;
+    private Date lastModified;
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
 
     public long getLanguageId() {
         return languageId;
