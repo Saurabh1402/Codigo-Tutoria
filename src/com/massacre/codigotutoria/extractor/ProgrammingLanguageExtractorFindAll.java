@@ -20,6 +20,7 @@ public class ProgrammingLanguageExtractorFindAll implements ResultSetExtractor<L
 
     @Override
     public List<ProgrammingLanguage> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+        System.out.println("Inside extractData of Extractor");
         Map<Long, LanguageHeader> mapHeader = new HashMap<Long, LanguageHeader>();
         Map<Long, ProgrammingLanguage> mapLanguage = new HashMap<Long, ProgrammingLanguage>();
         ProgrammingLanguage programmingLanguage;

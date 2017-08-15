@@ -21,7 +21,9 @@ public class CodigoTutoriaDateFormatter extends DateFormat {
 
     @Override
     public Date parse(String source) throws ParseException {
-        return new SimpleDateFormat("YYYY-MM-DD").parse(source);
+
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(source);
+        return date;
     }
 
     public String formatYYYYMMDD(Date date){

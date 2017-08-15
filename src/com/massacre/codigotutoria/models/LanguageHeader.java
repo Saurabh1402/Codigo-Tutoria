@@ -11,8 +11,8 @@ public class LanguageHeader {
     private long languageHeaderId;
     private String headerTitle;
     private long headerCount;
-    private List<LanguageIndex> index;
     private Date lastModified;
+    private List<LanguageIndex> index;
 
     public Date getLastModified() {
         return lastModified;

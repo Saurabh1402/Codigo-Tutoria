@@ -17,8 +17,8 @@ public class ProgrammingLanguage {
     private String colorPrimary;
     private String colorPrimaryDark;
     private String colorAccent;
-    private List<LanguageHeader> headers;
     private Date lastModified;
+    private List<LanguageHeader> headers;
 
     public Date getLastModified() {
         return lastModified;
@@ -84,7 +84,7 @@ public class ProgrammingLanguage {
         this.colorAccent = colorAccent;
     }
 
-//    public String toString(){
-//        return new Gson().toJson(this);
-//    }
+    public String toString(){
+        return new Gson().toJson(this);
+    }
 }

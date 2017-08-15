@@ -23,6 +23,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/web" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/images" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -33,5 +34,6 @@
     <orderEntry type="library" name="log4j-1.2.17" level="project" />
     <orderEntry type="library" name="commons-dbcp2-2.1.1" level="project" />
     <orderEntry type="library" name="jackson-core-2.2.3" level="project" />
+    <orderEntry type="library" name="org.json" level="project" />
   </component>
 </module>

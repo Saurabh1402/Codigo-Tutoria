@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="Codigo Tutorial webservice:war exploded">
+  <artifact type="war" name="Codigo Tutorial webservice:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/Codigo_Tutorial_webservice_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="Codigo Tutorial webservice_war exploded.war">
       <element id="javaee-facet-resources" facet="Codigo Tutorial webservice/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -14,6 +14,8 @@
           <element id="library" level="project" name="postgresql-42.1.3" />
           <element id="library" level="project" name="log4j-1.2.17" />
           <element id="library" level="project" name="commons-dbcp2-2.1.1" />
+          <element id="library" level="project" name="jackson-core-2.2.3" />
+          <element id="library" level="project" name="org.json" />
         </element>
       </element>
     </root>
