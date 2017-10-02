@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_codigo_tutorial_webservice" default="compile.module.codigo_tutorial_webservice">
+  <dirname property="module.codigo_tutorial_webservice.basedir" file="${ant.file.module_codigo_tutorial_webservice}"/>
+  
+  <property name="module.jdk.home.codigo_tutorial_webservice" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.codigo_tutorial_webservice" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.codigo_tutorial_webservice" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.codigo_tutorial_webservice" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="codigo_tutorial_webservice.output.dir" value="${module.codigo_tutorial_webservice.basedir}/out/production/Codigo Tutorial webservice"/>
+  <property name="codigo_tutorial_webservice.testoutput.dir" value="${module.codigo_tutorial_webservice.basedir}/out/test/Codigo Tutorial webservice"/>
+  
+  <path id="codigo_tutorial_webservice.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="codigo_tutorial_webservice.module.production.classpath">
+    <path refid="${module.jdk.classpath.codigo_tutorial_webservice}"/>
+    <path refid="library.spring-4.3.9.release.classpath"/>
+    <path refid="library.spring_mvc-4.3.9.release.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.postgresql-42.1.3.classpath"/>
+    <path refid="library.log4j-1.2.17.classpath"/>
+    <path refid="library.commons-dbcp2-2.1.1.classpath"/>
+    <path refid="library.jackson-core-2.2.3.classpath"/>
+    <path refid="library.org.json.classpath"/>
+  </path>
+  
+  <path id="codigo_tutorial_webservice.runtime.production.module.classpath">
+    <pathelement location="${codigo_tutorial_webservice.output.dir}"/>
+    <path refid="library.spring-4.3.9.release.classpath"/>
+    <path refid="library.spring_mvc-4.3.9.release.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.postgresql-42.1.3.classpath"/>
+    <path refid="library.log4j-1.2.17.classpath"/>
+    <path refid="library.commons-dbcp2-2.1.1.classpath"/>
+    <path refid="library.jackson-core-2.2.3.classpath"/>
+    <path refid="library.org.json.classpath"/>
+  </path>
+  
+  <path id="codigo_tutorial_webservice.module.classpath">
+    <path refid="${module.jdk.classpath.codigo_tutorial_webservice}"/>
+    <pathelement location="${codigo_tutorial_webservice.output.dir}"/>
+    <path refid="library.spring-4.3.9.release.classpath"/>
+    <path refid="library.spring_mvc-4.3.9.release.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.postgresql-42.1.3.classpath"/>
+    <path refid="library.log4j-1.2.17.classpath"/>
+    <path refid="library.commons-dbcp2-2.1.1.classpath"/>
+    <path refid="library.jackson-core-2.2.3.classpath"/>
+    <path refid="library.org.json.classpath"/>
+  </path>
+  
+  <path id="codigo_tutorial_webservice.runtime.module.classpath">
+    <pathelement location="${codigo_tutorial_webservice.testoutput.dir}"/>
+    <pathelement location="${codigo_tutorial_webservice.output.dir}"/>
+    <path refid="library.spring-4.3.9.release.classpath"/>
+    <path refid="library.spring_mvc-4.3.9.release.classpath"/>
+    <path refid="library.gson-2.5.classpath"/>
+    <path refid="library.postgresql-42.1.3.classpath"/>
+    <path refid="library.log4j-1.2.17.classpath"/>
+    <path refid="library.commons-dbcp2-2.1.1.classpath"/>
+    <path refid="library.jackson-core-2.2.3.classpath"/>
+    <path refid="library.org.json.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.codigo_tutorial_webservice">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.codigo_tutorial_webservice">
+    <patternset refid="excluded.from.module.codigo_tutorial_webservice"/>
+  </patternset>
+  
+  <path id="codigo_tutorial_webservice.module.sourcepath">
+    <dirset dir="${module.codigo_tutorial_webservice.basedir}">
+      <include name="src"/>
+      <include name="web"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.codigo_tutorial_webservice" depends="compile.module.codigo_tutorial_webservice.production,compile.module.codigo_tutorial_webservice.tests" description="Compile module Codigo Tutorial webservice"/>
+  
+  <target name="compile.module.codigo_tutorial_webservice.production" depends="register.custom.compilers" description="Compile module Codigo Tutorial webservice; production classes">
+    <mkdir dir="${codigo_tutorial_webservice.output.dir}"/>
+    <javac2 destdir="${codigo_tutorial_webservice.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.codigo_tutorial_webservice}/javac">
+      <compilerarg line="${compiler.args.codigo_tutorial_webservice}"/>
+      <bootclasspath refid="codigo_tutorial_webservice.module.bootclasspath"/>
+      <classpath refid="codigo_tutorial_webservice.module.production.classpath"/>
+      <src refid="codigo_tutorial_webservice.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.codigo_tutorial_webservice"/>
+    </javac2>
+    
+    <copy todir="${codigo_tutorial_webservice.output.dir}">
+      <fileset dir="${module.codigo_tutorial_webservice.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.codigo_tutorial_webservice.basedir}/web">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.codigo_tutorial_webservice.tests" depends="register.custom.compilers,compile.module.codigo_tutorial_webservice.production" description="compile module Codigo Tutorial webservice; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.codigo_tutorial_webservice" description="cleanup module">
+    <delete dir="${codigo_tutorial_webservice.output.dir}"/>
+    <delete dir="${codigo_tutorial_webservice.testoutput.dir}"/>
+  </target>
+</project>
