@@ -14,7 +14,8 @@
 
     <bean id="programminglanguage" class="com.massacre.codigotutoria.models.ProgrammingLanguage"/>
     <bean id="languageheader" class="com.massacre.codigotutoria.models.LanguageHeader"/>
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close"
           p:driverClassName="${jdbc.driverClassName}"
           p:url="${jdbc.url}"
           p:username="${jdbc.username}"

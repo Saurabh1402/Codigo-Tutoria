@@ -6,10 +6,13 @@ import com.massacre.codigotutoria.exception.MySQLErrorCodesTranslator;
 import com.massacre.codigotutoria.models.ProgrammingContainer;
 import com.massacre.codigotutoria.models.ProgrammingLanguage;
 import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.util.*;
 
 /**
@@ -23,7 +26,7 @@ public class DatabaseEngine implements EngineInterface{
 //    private Connection getConnection() throws SQLException{
 //
 //    }
-
+    public DatabaseEngine(){}
     @Override
     public String checkConnectivity() {
         String query="select title from programminglanguage where language_id=3";
